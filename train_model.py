@@ -13,6 +13,7 @@ from sklearn.metrics import accuracy_score, classification_report
 
 # Download stopwords
 nltk.download('stopwords')
+print("Loading datasets...")
 
 # Load datasets
 fake = pd.read_csv("dataset/Fake.csv")
@@ -25,6 +26,7 @@ true["label"] = 1
 # Merge datasets
 news = pd.concat([fake, true], axis=0)
 news = news.sample(frac=1, random_state=42).reset_index(drop=True)
+print("Cleaning text...")
 
 # Text cleaning
 stemmer = PorterStemmer()
@@ -42,26 +44,34 @@ news["text"] = news["text"].apply(clean_text)
 # Features and labels
 X = news["text"]
 y = news["label"]
+print("Converting text using TF-IDF...")
 
 # TF-IDF Vectorization
 vectorizer = TfidfVectorizer(max_features=5000)
 X = vectorizer.fit_transform(X)
+print("Splitting dataset...")
 
 # Split dataset
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
+print("Training Logistic Regression model...")
 
 # Train model
-model = LogisticRegression()
+model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
+print("Making predictions...")
 
 # Predictions
 y_pred = model.predict(X_test)
 
 # Accuracy
-print("Accuracy:", accuracy_score(y_test, y_pred))
+accuracy = accuracy_score(y_test, y_pred)
 
+print(f"\nModel Accuracy: {accuracy*100:.2f}%")
+
+with open("accuracy.txt", "w") as f:
+    f.write(f"{accuracy*100:.2f}")
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
 

@@ -33,8 +33,7 @@ st.set_page_config(
     page_icon="📰",
     layout="wide"
 )
-
-st.title("📰 Fake News Detection System")
+st.image("assets/banner.png", use_container_width=True)
 
 st.markdown("""
 ### Artificial Intelligence & Machine Learning
@@ -43,16 +42,19 @@ This web application predicts whether a news article is **Fake** or **Real** usi
 
 ---
 """)
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.metric("Dataset", "44,898")
+    st.metric("📊 Dataset", "44,898")
 
 with col2:
-    st.metric("Algorithm", "Logistic Regression")
+    st.metric("🎯 Accuracy", "99.45%")   # Replace with your actual accuracy
 
 with col3:
-    st.metric("Features", "TF-IDF")
+    st.metric("🤖 Algorithm", "Logistic Regression")
+
+with col4:
+    st.metric("📝 Features", "TF-IDF")
 st.sidebar.title("📰 Fake News Detector")
 
 st.sidebar.markdown("---")
