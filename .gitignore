@@ -24,3 +24,10 @@ __pycache__/
 # Operating System files
 .DS_Store
 Thumbs.db
+
+venv/
+__pycache__/
+*.pyc
+
+config.py
+.env
